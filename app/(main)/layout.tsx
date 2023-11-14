@@ -20,7 +20,7 @@ function MainLayout({ children }: MainLayoutProps) {
           <Spinner size="lg" />
         </div>
       )}
-      {!isAuthenticated && redirect("/") }
+      {!isLoading && !isAuthenticated && redirect("/") }
       {!isLoading && isAuthenticated && (
         <div className="flex h-full dark:bg-[#1F1F1F]">
           <Navigation />
