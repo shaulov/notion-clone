@@ -6,6 +6,7 @@ import { ChevronsLeft, MenuIcon } from "lucide-react";
 import { useMediaQuery } from "usehooks-ts";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { UserItem } from "./user-item";
 
 export function Navigation() {
   const pathname = usePathname();
@@ -103,7 +104,9 @@ export function Navigation() {
           <ChevronsLeft className="w-6 h-6" />
         </button>
         <ul className="grid gap-y-4">
-          <li>Action item</li>
+          <li>
+            <UserItem />
+          </li>
           <li>Documents</li>
         </ul>
         <button 
