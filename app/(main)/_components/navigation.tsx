@@ -2,18 +2,21 @@
 
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { ChevronsLeft, MenuIcon } from "lucide-react";
+import { ChevronsLeft, MenuIcon, PlusCircle, Search, Settings } from "lucide-react";
 import { useMediaQuery } from "usehooks-ts";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { UserItem } from "./user-item";
+import { ItemButton } from "./item-button";
 
 export function Navigation() {
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const documents = useQuery(api.documents.get);
+  const create = useMutation(api.documents.create);
   const isResizingRef = useRef(false);
   const sidebarRef = useRef<ElementRef<"nav">>(null);
   const headerRef = useRef<ElementRef<"header">>(null);
@@ -87,6 +90,15 @@ export function Navigation() {
     }
   }
 
+  const handleCreate = () => {
+    const promise = create({ title: "Untitled" });
+    toast.promise(promise, {
+      loading: "Creating a new note...",
+      success: "New note created!",
+      error: "Failed to create a new note",
+    });
+  }
+
   return (
     <>
       <nav 
@@ -106,9 +118,25 @@ export function Navigation() {
         >
           <ChevronsLeft className="w-6 h-6" />
         </button>
-        <div className="grid gap-y-4">
+        <div>
           <UserItem />
-          <ul>
+          <ItemButton
+            label="Search"
+            icon={Search}
+            isSearch
+            onClick={() => {}}
+          />
+          <ItemButton
+            label="Settings"
+            icon={Settings}
+            onClick={() => {}}
+          />
+          <ItemButton
+            label="New page"
+            icon={PlusCircle}
+            onClick={handleCreate}
+          />
+          <ul className="mt-4">
             {documents?.map(document => (
               <li key={document._id}>
                 {document.title}
@@ -131,7 +159,7 @@ export function Navigation() {
         ref={headerRef}
       >
         <div className="w-full px-3 py-2 bg-transparent">
-        {isCollapsed && (
+          {isCollapsed && (
             <Button variant="ghost" onClick={resetWidth}>
               <MenuIcon className="w-6 h-6 text-muted-foreground" />
             </Button>
