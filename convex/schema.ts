@@ -2,7 +2,7 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
 export default defineSchema({
-  document: defineTable({
+  documents: defineTable({
     title: v.string(),
     userId: v.string(),
     isArchived: v.boolean(),

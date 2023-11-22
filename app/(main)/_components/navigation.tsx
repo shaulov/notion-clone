@@ -2,6 +2,8 @@
 
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 import { ChevronsLeft, MenuIcon } from "lucide-react";
 import { useMediaQuery } from "usehooks-ts";
 import { cn } from "@/lib/utils";
@@ -11,6 +13,7 @@ import { UserItem } from "./user-item";
 export function Navigation() {
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const documents = useQuery(api.documents.get);
   const isResizingRef = useRef(false);
   const sidebarRef = useRef<ElementRef<"nav">>(null);
   const headerRef = useRef<ElementRef<"header">>(null);
@@ -103,12 +106,16 @@ export function Navigation() {
         >
           <ChevronsLeft className="w-6 h-6" />
         </button>
-        <ul className="grid gap-y-4">
-          <li>
-            <UserItem />
-          </li>
-          <li>Documents</li>
-        </ul>
+        <div className="grid gap-y-4">
+          <UserItem />
+          <ul>
+            {documents?.map(document => (
+              <li key={document._id}>
+                {document.title}
+              </li>
+            ))}
+          </ul>
+        </div>
         <button 
           className="absolute top-0 right-0 w-1 h-full bg-primary/10 cursor-ew-resize transition opacity-0 group-hover/sidebar:opacity-100"
           onClick={resetWidth}
