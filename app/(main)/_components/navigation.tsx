@@ -2,7 +2,7 @@
 
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { useMutation, useQuery } from "convex/react";
+import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { ChevronsLeft, MenuIcon, PlusCircle, Search, Settings } from "lucide-react";
 import { useMediaQuery } from "usehooks-ts";
@@ -10,12 +10,12 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { UserItem } from "./user-item";
-import { ItemButton } from "./item-button";
+import { Item } from "./item";
+import { DocumentList } from "./document-list";
 
 export function Navigation() {
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
-  const documents = useQuery(api.documents.get);
   const create = useMutation(api.documents.create);
   const isResizingRef = useRef(false);
   const sidebarRef = useRef<ElementRef<"nav">>(null);
@@ -120,29 +120,23 @@ export function Navigation() {
         </button>
         <div>
           <UserItem />
-          <ItemButton
+          <Item
             label="Search"
             icon={Search}
             isSearch
             onClick={() => {}}
           />
-          <ItemButton
+          <Item
             label="Settings"
             icon={Settings}
             onClick={() => {}}
           />
-          <ItemButton
+          <Item
             label="New page"
             icon={PlusCircle}
             onClick={handleCreate}
           />
-          <ul className="mt-4">
-            {documents?.map(document => (
-              <li key={document._id}>
-                {document.title}
-              </li>
-            ))}
-          </ul>
+          <DocumentList className="mt-4" />
         </div>
         <button 
           className="absolute top-0 right-0 w-1 h-full bg-primary/10 cursor-ew-resize transition opacity-0 group-hover/sidebar:opacity-100"
