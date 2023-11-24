@@ -1,11 +1,20 @@
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { ChevronDown, ChevronRight, LucideIcon, Plus } from "lucide-react";
+import { ChevronDown, ChevronRight, LucideIcon, MoreHorizontal, Plus, Trash } from "lucide-react";
+import { useUser } from "@clerk/clerk-react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { cn } from "@/lib/utils";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
 
 interface ItemProps {
   label: string;
@@ -32,21 +41,34 @@ export function Item({
   expanded,
   onExpand,
 }: ItemProps) {
+  const { user } = useUser();
   const router = useRouter();
   const create = useMutation(api.documents.create);
+  const archive = useMutation(api.documents.archive);
 
-  const handleCreate = (evt: React.MouseEvent<HTMLButtonElement | MouseEvent>) => {
+  const handleCreate = () => {
     if (!id) return;
     const promise = create({ title: "Untitled", parentDocument: id })
       .then(documentId => {
         if (!expanded) onExpand?.();
         // router.push(`/documents/${documentId}`);
       });
-    
+
     toast.promise(promise, {
       loading: "Creating a new note...",
       success: "New note reated!",
       error: "Failed to create a new note."
+    });
+  }
+
+  const handleArchive = () => {
+    if (!id) return;
+    const promise = archive({ id });
+
+    toast.promise(promise, {
+      loading: "Moving to trash...",
+      success: "Note moved to trash!",
+      error: "Failed to archive note."
     });
   }
 
@@ -93,7 +115,29 @@ export function Item({
       </button>
       {!!id && (
         <div className="flex items-center gap-x-2 ml-auto">
-          <button 
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className="h-full ml-auto rounded-sm opacity-0 group-hover:opacity-100 hover:bg-neutral-300 dark:hover:bg-neutral-600">
+                <MoreHorizontal className="w-6 h-6 p-1 text-muted-foreground" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              className="w-60"
+              align="start"
+              side="right"
+              forceMount
+            >
+              <DropdownMenuItem asChild>
+                <button className="w-full mr-2" onClick={handleArchive}>
+                  <Trash className="w-4 h-4 mr-2" />
+                  Delete
+                </button>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <p className="p-2 text-xs text-muted-foreground">Last edited by: {user?.fullName}</p>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <button
             className="h-full ml-auto rounded-sm opacity-0 group-hover:opacity-100 hover:bg-neutral-300 dark:hover:bg-neutral-600"
             onClick={handleCreate}
           >
