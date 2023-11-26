@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { FileIcon } from "lucide-react";
 import { useQuery } from "convex/react";
@@ -10,13 +10,14 @@ import { cn } from "@/lib/utils";
 import { Item } from "./item";
 
 interface DocumentListProps {
+  children?: ReactNode;
   className?: string;
   parentDocumentId?: Id<"documents">;
   level?: number;
   data?: Doc<"documents">[];
 }
 
-export function DocumentList({ className, parentDocumentId, level = 0, data }: DocumentListProps) {
+export function DocumentList({ children, className, parentDocumentId, level = 0, data }: DocumentListProps) {
   const params = useParams();
   const router = useRouter();
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
@@ -59,7 +60,7 @@ export function DocumentList({ className, parentDocumentId, level = 0, data }: D
           level === 0 && "hidden",
         )}
         style={{
-          paddingLeft: level ? `${level * 12 + 32 }px` : "44px",
+          paddingLeft: level ? `${level * 12 + 32 }px` : undefined,
         }}
       >
         No pages inside
@@ -85,6 +86,7 @@ export function DocumentList({ className, parentDocumentId, level = 0, data }: D
           )}
         </li>
       ))}
+      {children}
     </ul>
   );
 }

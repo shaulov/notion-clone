@@ -4,7 +4,7 @@ import { ElementRef, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { ChevronsLeft, MenuIcon, PlusCircle, Search, Settings } from "lucide-react";
+import { ChevronsLeft, MenuIcon, Plus, PlusCircle, Search, Settings } from "lucide-react";
 import { useMediaQuery } from "usehooks-ts";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
@@ -136,7 +136,11 @@ export function Navigation() {
             icon={PlusCircle}
             onClick={handleCreate}
           />
-          <DocumentList className="mt-4" />
+          <DocumentList className="mt-4">
+            <li>
+              <Item label="Add new page" icon={Plus} onClick={handleCreate} />
+            </li>
+          </DocumentList>
         </div>
         <button 
           className="absolute top-0 right-0 w-1 h-full bg-primary/10 cursor-ew-resize transition opacity-0 group-hover/sidebar:opacity-100"
