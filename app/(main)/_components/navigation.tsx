@@ -4,14 +4,16 @@ import { ElementRef, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { ChevronsLeft, MenuIcon, Plus, PlusCircle, Search, Settings } from "lucide-react";
+import { ChevronsLeft, MenuIcon, Plus, PlusCircle, Search, Settings, Trash } from "lucide-react";
 import { useMediaQuery } from "usehooks-ts";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { UserItem } from "./user-item";
 import { Item } from "./item";
 import { DocumentList } from "./document-list";
+import { TrashBox } from "./trash-box";
 
 export function Navigation() {
   const pathname = usePathname();
@@ -141,6 +143,17 @@ export function Navigation() {
               <Item label="Add new page" icon={Plus} onClick={handleCreate} />
             </li>
           </DocumentList>
+          <Popover>
+            <PopoverTrigger className="group w-full mt-4 py-1 pr-3 pl-[12px] text-sm font-medium text-muted-foreground hover:bg-primary/5">
+              <p className="flex items-center min-h-[27px]">
+                <Trash className="shrink-0 h-[18px] mr-2 text-muted-foreground" />
+                <span className="truncate">Trash</span>
+              </p>
+            </PopoverTrigger>
+            <PopoverContent className="w-72 p-0" side={isMobile ? "bottom" : "right"}>
+              <TrashBox />
+            </PopoverContent>
+          </Popover>
         </div>
         <button 
           className="absolute top-0 right-0 w-1 h-full bg-primary/10 cursor-ew-resize transition opacity-0 group-hover/sidebar:opacity-100"

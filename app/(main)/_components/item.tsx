@@ -17,7 +17,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 interface ItemProps {
   label: string;
-  onClick: () => void;
+  onClick?: () => void;
   icon: LucideIcon;
   id?: Id<"documents">;
   documentIcon?: string;
