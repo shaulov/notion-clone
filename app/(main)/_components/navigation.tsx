@@ -7,6 +7,7 @@ import { api } from "@/convex/_generated/api";
 import { ChevronsLeft, MenuIcon, Plus, PlusCircle, Search, Settings, Trash } from "lucide-react";
 import { useMediaQuery } from "usehooks-ts";
 import { toast } from "sonner";
+import { useSearch } from "@/hooks/use-search";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
@@ -16,6 +17,7 @@ import { DocumentList } from "./document-list";
 import { TrashBox } from "./trash-box";
 
 export function Navigation() {
+  const search = useSearch();
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const create = useMutation(api.documents.create);
@@ -126,7 +128,7 @@ export function Navigation() {
             label="Search"
             icon={Search}
             isSearch
-            onClick={() => {}}
+            onClick={search.onOpen}
           />
           <Item
             label="Settings"
