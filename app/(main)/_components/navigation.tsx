@@ -8,6 +8,7 @@ import { ChevronsLeft, MenuIcon, Plus, PlusCircle, Search, Settings, Trash } fro
 import { useMediaQuery } from "usehooks-ts";
 import { toast } from "sonner";
 import { useSearch } from "@/hooks/use-search";
+import { useSettings } from "@/hooks/use-settings";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
@@ -18,6 +19,7 @@ import { TrashBox } from "./trash-box";
 
 export function Navigation() {
   const search = useSearch();
+  const settings = useSettings();
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const create = useMutation(api.documents.create);
@@ -133,7 +135,7 @@ export function Navigation() {
           <Item
             label="Settings"
             icon={Settings}
-            onClick={() => {}}
+            onClick={settings.onOpen}
           />
           <Item
             label="New page"
