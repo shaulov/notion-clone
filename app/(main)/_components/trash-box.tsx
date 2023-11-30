@@ -84,7 +84,7 @@ export function TrashBox() {
                   {document.title}
                 </button>
                 <button  
-                  className="flex items-center p-2 rounded-sm hover:bg-neutral-200"
+                  className="flex items-center p-2 rounded-sm hover:bg-neutral-200 dark:hover:bg-neutral-600"
                   onClick={(evt) => handleRestore(evt, document._id)}
                 >
                   <span className="sr-only">Restore document</span>
@@ -92,7 +92,7 @@ export function TrashBox() {
                 </button>
                 <ConfirmModal onConfirm={() => handleRemove(document._id)}>
                   <button  
-                    className="flex items-center p-2 rounded-sm hover:bg-neutral-200"
+                    className="flex items-center p-2 rounded-sm hover:bg-neutral-200 dark:hover:bg-neutral-600"
                   >
                     <span className="sr-only">Remove document</span>
                     <Trash className="w-4 h-4 text-muted-foreground" />

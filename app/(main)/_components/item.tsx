@@ -85,7 +85,7 @@ export function Item({
     >
       {!!id && (
         <button
-          className="h-full mr-1 rounded-md hover:bg-neutral-300 dark:bg-neutral-600"
+          className="h-full mr-1 rounded-md hover:bg-neutral-300 dark:hover:bg-neutral-600"
           onClick={() => onExpand?.()}
         >
           <ChevronIcon className="shrink-0 w-6 h-6 p-1 text-muted-foreground/40" />
