@@ -1,7 +1,7 @@
 "use client";
 
 import { ElementRef, useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { ChevronsLeft, MenuIcon, Plus, PlusCircle, Search, Settings, Trash } from "lucide-react";
@@ -16,10 +16,12 @@ import { UserItem } from "./user-item";
 import { Item } from "./item";
 import { DocumentList } from "./document-list";
 import { TrashBox } from "./trash-box";
+import { Navbar } from "./navbar";
 
 export function Navigation() {
   const search = useSearch();
   const settings = useSettings();
+  const params = useParams();
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const create = useMutation(api.documents.create);
@@ -173,13 +175,20 @@ export function Navigation() {
         )}
         ref={headerRef}
       >
-        <div className="w-full px-3 py-2 bg-transparent">
-          {isCollapsed && (
-            <Button variant="ghost" onClick={resetWidth}>
-              <MenuIcon className="w-6 h-6 text-muted-foreground" />
-            </Button>
-          )}
-        </div>
+        {!!params.documentId ? (
+          <Navbar
+            isCollapsed={isCollapsed}
+            onResetWidth={resetWidth}
+          />
+        ) : (
+          <div className="w-full px-3 py-2 bg-transparent">
+            {isCollapsed && (
+              <Button variant="ghost" onClick={resetWidth}>
+                <MenuIcon className="w-6 h-6 text-muted-foreground" />
+              </Button>
+            )}
+          </div>
+        )}
       </header>
     </>
   );
