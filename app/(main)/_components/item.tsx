@@ -92,10 +92,7 @@ export function Item({
         </button>
       )}
       <button 
-        className={cn(
-          "flex items-center w-full min-h-[27px]",
-          active && "text-primary bg-primary/5"
-        )}
+        className="flex items-center w-full min-h-[27px]"
         onClick={onClick}
       >
         {documentIcon ? (
