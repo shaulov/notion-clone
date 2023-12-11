@@ -8,6 +8,7 @@ import { Id } from "@/convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
 import { Title } from "./title";
 import { Banner } from "./banner";
+import { Menu } from "./menu";
 
 interface NavbarProps {
   isCollapsed: boolean;
@@ -22,8 +23,9 @@ export function Navbar({ isCollapsed, onResetWidth }: NavbarProps) {
 
   if (document === undefined) {
     return (
-      <div className="flex items-center w-full px-3 py-2 bg-background dark:bg-[#1F1F1F]">
+      <div className="flex items-center justify-between w-full px-3 py-2 bg-background dark:bg-[#1F1F1F]">
         <Title.Skeleton />
+        <Menu.Skeleton />
       </div>
     );
   }
@@ -47,6 +49,7 @@ export function Navbar({ isCollapsed, onResetWidth }: NavbarProps) {
         )}
         <div className="flex items-center justify-between w-full">
           <Title initialData={document} />
+          <Menu documentId={document._id} />
         </div>
       </div>
       {document.isArchived && (
