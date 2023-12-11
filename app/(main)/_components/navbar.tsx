@@ -7,6 +7,7 @@ import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
 import { Title } from "./title";
+import { Banner } from "./banner";
 
 interface NavbarProps {
   isCollapsed: boolean;
@@ -48,6 +49,9 @@ export function Navbar({ isCollapsed, onResetWidth }: NavbarProps) {
           <Title initialData={document} />
         </div>
       </div>
+      {document.isArchived && (
+        <Banner documentId={document._id} />
+      )}
     </>
   );
 }
