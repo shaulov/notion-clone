@@ -41,7 +41,7 @@ export function Menu({ documentId, className }: MenuProps) {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className={className}>
+      <DropdownMenuTrigger className={className} asChild>
         <Button size="sm" variant="ghost">
           <span className="sr-only">Open menu</span>
           <MoreHorizontal className="h-4 w-4" />
@@ -53,7 +53,7 @@ export function Menu({ documentId, className }: MenuProps) {
         alignOffset={8}
         forceMount
       >
-        <DropdownMenuItem>
+        <DropdownMenuItem asChild>
           <button className="flex w-full items-center" onClick={handleArchive}>
             <Trash className="mr-2 h-4 w-4" />
             Delete
