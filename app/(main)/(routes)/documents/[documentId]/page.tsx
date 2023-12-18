@@ -4,6 +4,7 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { Toolbar } from "@/components/toolbar";
+import { Cover } from "@/components/cover";
 
 interface DocumentIdPageProps {
   params: {
@@ -25,7 +26,8 @@ export default function DocumentIdPage({ params }: DocumentIdPageProps) {
   }
 
   return (
-    <section className="pt-40">
+    <section className="pb-40">
+      <Cover url={document.coverImage} />
       <div className="mx-auto md:max-w-3xl lg:max-w-4xl">
         <Toolbar initialData={document} />
       </div>
