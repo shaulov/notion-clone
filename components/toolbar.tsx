@@ -71,7 +71,7 @@ export function Toolbar({ initialData, preview }: ToolbarProps) {
             </p>
           </IconPicker>
           <Button
-            className="rounded-full text-muted-foreground opacity-0 transition group-hover/icon:opacity-100"
+            className="rounded-full text-muted-foreground opacity-100 lg:opacity-0 transition group-hover/icon:opacity-100"
             onClick={handleRemoveIcon}
             variant="outline"
             size="icon"
@@ -84,7 +84,7 @@ export function Toolbar({ initialData, preview }: ToolbarProps) {
       {!!initialData.icon && preview && (
         <p className="pt-6 text-6xl">{initialData.icon}</p>
       )}
-      <div className="flex items-center gap-x-1 py-4 opacity-0 group-hover:opacity-100">
+      <div className="flex items-center gap-x-1 py-4 opacity-100 lg:opacity-0 group-hover:opacity-100">
         {!initialData.icon && !preview && (
           <IconPicker asChild onChange={handleSelectIcon}>
             <Button

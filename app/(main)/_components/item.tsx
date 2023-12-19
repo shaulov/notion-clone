@@ -50,7 +50,7 @@ export function Item({
     const promise = create({ title: "Untitled", parentDocument: id })
       .then(documentId => {
         if (!expanded) onExpand?.();
-        // router.push(`/documents/${documentId}`);
+        router.push(`/documents/${documentId}`);
       });
 
     toast.promise(promise, {
@@ -62,7 +62,8 @@ export function Item({
 
   const handleArchive = () => {
     if (!id) return;
-    const promise = archive({ id });
+    const promise = archive({ id })
+      .then(() => router.push("/documents"));
 
     toast.promise(promise, {
       loading: "Moving to trash...",
@@ -113,7 +114,7 @@ export function Item({
         <div className="flex items-center gap-x-2 ml-auto">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button className="h-full ml-auto rounded-sm opacity-0 group-hover:opacity-100 hover:bg-neutral-300 dark:hover:bg-neutral-600">
+              <button className="h-full ml-auto rounded-sm opacity-100 lg:opacity-0 group-hover:opacity-100 hover:bg-neutral-300 dark:hover:bg-neutral-600">
                 <MoreHorizontal className="w-6 h-6 p-1 text-muted-foreground" />
               </button>
             </DropdownMenuTrigger>
@@ -134,7 +135,7 @@ export function Item({
             </DropdownMenuContent>
           </DropdownMenu>
           <button
-            className="h-full ml-auto rounded-sm opacity-0 group-hover:opacity-100 hover:bg-neutral-300 dark:hover:bg-neutral-600"
+            className="h-full ml-auto rounded-sm opacity-100 lg:opacity-0 group-hover:opacity-100 hover:bg-neutral-300 dark:hover:bg-neutral-600"
             onClick={handleCreate}
           >
             <Plus className="w-6 h-6 p-1 text-muted-foreground" />
