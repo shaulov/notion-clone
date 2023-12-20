@@ -14,7 +14,7 @@ import { Publish } from "./publish";
 interface NavbarProps {
   isCollapsed: boolean;
   onResetWidth: () => void;
-};
+}
 
 export function Navbar({ isCollapsed, onResetWidth }: NavbarProps) {
   const params = useParams();
@@ -24,7 +24,7 @@ export function Navbar({ isCollapsed, onResetWidth }: NavbarProps) {
 
   if (document === undefined) {
     return (
-      <div className="flex items-center justify-between w-full px-3 py-2 bg-background dark:bg-[#1F1F1F]">
+      <div className="flex w-full items-center justify-between bg-background px-3 py-2 dark:bg-[#1F1F1F]">
         <Title.Skeleton />
         <Menu.Skeleton />
       </div>
@@ -37,10 +37,10 @@ export function Navbar({ isCollapsed, onResetWidth }: NavbarProps) {
 
   return (
     <>
-      <div className="flex items-center gap-x-4 w-full px-3 py-2 bg-background dark:bg-[#1F1F1F]">
+      <div className="flex w-full items-center gap-x-4 bg-background px-3 py-2 dark:bg-[#1F1F1F]">
         {isCollapsed && (
           <Button
-            className="w-6 h-6 p-0 text-muted-foreground"
+            className="h-6 w-6 p-0 text-muted-foreground"
             variant="ghost"
             size="sm"
             onClick={onResetWidth}
@@ -48,7 +48,7 @@ export function Navbar({ isCollapsed, onResetWidth }: NavbarProps) {
             <MenuIcon />
           </Button>
         )}
-        <div className="flex items-center justify-between w-full">
+        <div className="flex w-full items-center justify-between">
           <Title initialData={document} />
           <div className="flex items-center gap-x-2">
             <Publish className="justify-self-end" initialData={document} />
@@ -56,9 +56,7 @@ export function Navbar({ isCollapsed, onResetWidth }: NavbarProps) {
           </div>
         </div>
       </div>
-      {document.isArchived && (
-        <Banner documentId={document._id} />
-      )}
+      {document.isArchived && <Banner documentId={document._id} />}
     </>
   );
 }
