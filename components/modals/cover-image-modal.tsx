@@ -10,7 +10,7 @@ import { Id } from "@/convex/_generated/dataModel";
 
 export function CoverImageModal() {
   const [file, setFile] = useState<File>();
-  const [isSubmiting, setIsSubmiting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const update = useMutation(api.documents.update);
   const params = useParams();
   const coverImage = useCoverImage();
@@ -18,13 +18,13 @@ export function CoverImageModal() {
 
   const handleClose = () => {
     setFile(undefined);
-    setIsSubmiting(false);
+    setIsSubmitting(false);
     coverImage.onClose();
   }
 
   const handleChange = async (file?: File) => {
     if (file) {
-      setIsSubmiting(true);
+      setIsSubmitting(true);
       setFile(file);
 
       const res = await edgestore.publicFiles.upload({
@@ -51,7 +51,7 @@ export function CoverImageModal() {
         </DialogHeader>
         <SingleImageDropzone
           className="w-full outline-none"
-          disabled={isSubmiting}
+          disabled={isSubmitting}
           value={file}
           onChange={handleChange}
         />
