@@ -103,7 +103,14 @@ export function Item({
         ) : (
           <Icon className="shrink-0 h-[18px] w-[18px] mr-2 text-muted-foreground" />
         )}
-        <span className="truncate">{label}</span>
+        <span
+          className="truncate line-clamp-1"
+          style={{
+            width: level ? `${102 - (level * 12)}px` : "102px",
+          }}
+        >
+          {label}
+        </span>
         {isSearch && (
           <kbd className="inline-flex items-center gap-1 h-5 ml-auto px-1.5 font-mono text-[10px] font-medium text-muted-foreground bg-muted border rounded opacity-100 pointer-events-none select-none">
             <span className="text-xs">⌘</span>K
