@@ -63,7 +63,7 @@ export function Title({ initialData }: TitleProps) {
           size="sm"
           onClick={enableInput}
         >
-          <span className="truncate">{initialData?.title}</span>
+          <span className="w-[200px] md:w-full truncate">{initialData?.title}</span>
         </Button>
       )}
     </div>

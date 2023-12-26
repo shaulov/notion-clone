@@ -62,7 +62,7 @@ export function Toolbar({ initialData, preview }: ToolbarProps) {
   };
 
   return (
-    <div className="group relative pl-[54px]">
+    <div className="group relative px-[54px]">
       {!!initialData.icon && !preview && (
         <div className="group/icon group flex items-center gap-x-2 pt-6">
           <IconPicker onChange={handleSelectIcon}>
@@ -111,7 +111,7 @@ export function Toolbar({ initialData, preview }: ToolbarProps) {
       </div>
       {isEditing && !preview ? (
         <TextareaAutosize
-          className="resize-none break-words bg-transparent text-5xl font-bold text-[#3F3F3F] dark:text-[#CFCFCF]"
+          className="w-full text-start resize-none break-words bg-transparent text-5xl font-bold text-[#3F3F3F] dark:text-[#CFCFCF]"
           ref={inputRef}
           value={value}
           onBlur={disableInput}
@@ -120,7 +120,7 @@ export function Toolbar({ initialData, preview }: ToolbarProps) {
         />
       ) : (
         <button
-          className="resize-none break-words pb-[11.5px] text-5xl font-bold text-[#3F3F3F] dark:text-[#CFCFCF]"
+          className="w-full text-start resize-none break-words pb-[11.5px] text-5xl font-bold text-[#3F3F3F] dark:text-[#CFCFCF]"
           onClick={enableInput}
         >
           {initialData.title}
